@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import IntersectionReveal from '@/components/IntersectionReveal';
+import { createClient } from '@/lib/supabase/server';
 
 export const metadata = {
   title: 'Associations & Collaborations | Dr. Fr. Roby Kannanchira CMI',
@@ -15,10 +16,7 @@ export const revalidate = 0;
 
 export default async function Associations() {
   const supabase = await createClient();
-  const [{ data: dbAssociations }, { data: scData }] = await Promise.all([
-    supabase.from('associations').select('*').order('created_at', { ascending: false }),
-    supabase.from('site_content').select('content_key, content_value').eq('page', 'associations')
-  ]);
+  const { data: scData } = await supabase.from('site_content').select('content_key, content_value').eq('page', 'associations');
 
   const c: Record<string, string> = Object.fromEntries(
     (scData || []).map((r: any) => [r.content_key, r.content_value])
