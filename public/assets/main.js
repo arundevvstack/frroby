@@ -149,6 +149,21 @@ const counterObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.stat-number').forEach(el => counterObserver.observe(el));
 
+// ─── FADE-UP INTERSECTION OBSERVER ───
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      fadeObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  rootMargin: '0px 0px -50px 0px',
+  threshold: 0.15
+});
+
+document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
 // ─── ACCESSIBLE GALLERY LIGHTBOX ───
 const lightbox = document.querySelector('.lightbox');
 const lbImg = lightbox?.querySelector('img');
