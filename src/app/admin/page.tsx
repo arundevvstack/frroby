@@ -28,6 +28,7 @@ export default function AdminDashboard() {
   const [messages, setMessages] = useState<any[]>([]);
   const [siteContent, setSiteContent] = useState<any[]>([]);
   const [contentSaving, setContentSaving] = useState<string | null>(null);
+  const [contentSaved, setContentSaved] = useState<string | null>(null);
 
   // Form / Modal States
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -778,9 +779,9 @@ export default function AdminDashboard() {
                   {([
                     { name: 'Home',                    url: '/',             manager: 'Site Content + Awards + Events', editTab: 'content' as Tab },
                     { name: 'About',                   url: '/about',        manager: 'Site Content',         editTab: 'content' as Tab },
-                    { name: 'Initiatives & Contributions', url: '/initiatives', manager: 'Initiatives (DB)', editTab: 'initiatives' as Tab },
-                    { name: 'Gallery',                 url: '/gallery',      manager: 'Gallery Items (DB)',   editTab: 'gallery' as Tab },
-                    { name: 'Associations',            url: '/associations', manager: 'Site Content',         editTab: 'content' as Tab },
+                    { name: 'Initiatives & Contributions', url: '/initiatives', manager: 'Site Content + Initiatives (DB)', editTab: 'content' as Tab },
+                    { name: 'Gallery',                 url: '/gallery',      manager: 'Site Content + Gallery Items (DB)',   editTab: 'content' as Tab },
+                    { name: 'Associations',            url: '/associations', manager: 'Site Content + Associations (DB)',         editTab: 'content' as Tab },
                     { name: 'Contact',                 url: '/contact',      manager: 'Site Content + Inbox', editTab: 'content' as Tab },
                     { name: 'Privacy Policy',          url: '/privacy',      manager: 'Static (code only)',   editTab: null },
                     { name: 'Terms of Use',            url: '/terms',        manager: 'Static (code only)',   editTab: null },
@@ -834,9 +835,11 @@ export default function AdminDashboard() {
                 <ul style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '2', paddingLeft: '1.25rem' }}>
                   <li><strong>Home</strong> — Awards &amp; News sections pull from the database. Add items via the Awards or Events tabs.</li>
                   <li><strong>Gallery</strong> — All photos come from the Gallery Items tab in this panel.</li>
-                  <li><strong>Initiatives</strong> — The initiatives grid pulls from the Initiatives tab.</li>
-                  <li><strong>Contact</strong> — Form submissions appear in the Inbox Messages tab.</li>
-                  <li><strong>About, Associations, Privacy, Terms</strong> — Content is static (Edit Page button is disabled).</li>
+                  <li><strong>Initiatives</strong> — The page content is managed in Site Content, and the initiatives grid pulls from the Initiatives tab.</li>
+                  <li><strong>Contact</strong> — Content managed in Site Content. Form submissions appear in the Inbox Messages tab.</li>
+                  <li><strong>Associations</strong> — Page content managed in Site Content, items from Associations tab.</li>
+                  <li><strong>Footer</strong> — Footer text is managed in the Site Content tab.</li>
+                  <li><strong>Privacy, Terms</strong> — Content is static (Edit Page button is disabled).</li>
                 </ul>
               </div>
             </div>
@@ -852,7 +855,7 @@ export default function AdminDashboard() {
               return acc;
             }, {} as Record<string, any[]>);
 
-            const pageOrder = ['home', 'about', 'contact'];
+            const pageOrder = ['home', 'about', 'initiatives', 'gallery', 'associations', 'contact', 'footer'];
             const sortedPages = Object.keys(grouped).sort((a, b) => {
               const ia = pageOrder.indexOf(a);
               const ib = pageOrder.indexOf(b);
@@ -861,6 +864,7 @@ export default function AdminDashboard() {
 
             const handleContentSave = async (item: any, newValue: string) => {
               setContentSaving(item.content_key);
+              setContentSaved(null);
               setErrorMsg(null);
               try {
                 const { error } = await supabase
@@ -871,6 +875,8 @@ export default function AdminDashboard() {
                 setSiteContent(prev =>
                   prev.map(sc => sc.id === item.id ? { ...sc, content_value: newValue } : sc)
                 );
+                setContentSaved(item.content_key);
+                setTimeout(() => setContentSaved(null), 3000);
               } catch (err: any) {
                 setErrorMsg(err.message || 'Failed to save.');
               } finally {
@@ -929,8 +935,12 @@ export default function AdminDashboard() {
                                   {item.section && `${item.section} · `}{item.content_type}
                                 </span>
                               </div>
-                              <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
-                                {contentSaving === item.content_key ? '💾 Saving...' : ''}
+                              <span style={{ 
+                                fontSize: '0.8rem', 
+                                color: contentSaved === item.content_key ? '#10b981' : 'var(--text-muted)',
+                                fontWeight: contentSaved === item.content_key ? '600' : 'normal'
+                              }}>
+                                {contentSaving === item.content_key ? '💾 Saving...' : contentSaved === item.content_key ? '✅ Saved!' : ''}
                               </span>
                             </div>
 
@@ -970,7 +980,7 @@ export default function AdminDashboard() {
                                   }}
                                   style={{ flexShrink: 0, padding: '8px 14px' }}
                                 >
-                                  Save
+                                  {contentSaving === item.content_key ? 'Saving' : contentSaved === item.content_key ? 'Saved' : 'Save'}
                                 </button>
                               </div>
                             )}

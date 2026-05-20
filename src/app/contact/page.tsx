@@ -11,6 +11,9 @@ export const metadata = {
   },
 };
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function Contact() {
   const supabase = await createClient();
   const { data: scData } = await supabase.from('site_content').select('content_key, content_value').eq('page', 'contact');

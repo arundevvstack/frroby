@@ -61,12 +61,19 @@ const STATIC_INITIATIVES = [
   },
 ];
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function Initiatives() {
   const supabase = await createClient();
-  const { data: dbInitiatives } = await supabase
-    .from('initiatives')
-    .select('*')
-    .order('created_at', { ascending: false });
+  const [{ data: dbInitiatives }, { data: scData }] = await Promise.all([
+    supabase.from('initiatives').select('*').order('created_at', { ascending: false }),
+    supabase.from('site_content').select('content_key, content_value').eq('page', 'initiatives')
+  ]);
+
+  const c: Record<string, string> = Object.fromEntries(
+    (scData || []).map((r: any) => [r.content_key, r.content_value])
+  );
 
   const initiatives =
     dbInitiatives && dbInitiatives.length > 0 ? dbInitiatives : STATIC_INITIATIVES;
@@ -100,10 +107,9 @@ export default async function Initiatives() {
             <p className="breadcrumb">
               <Link href="/">Home</Link> <span>/</span> Initiatives &amp; Contributions
             </p>
-            <h1>Initiatives &amp; Contributions</h1>
+            <h1>{c['init_page_title'] || 'Initiatives & Contributions'}</h1>
             <p>
-              Decades of transformative work across faith, culture, education, and international
-              advocacy — touching millions of lives.
+              {c['init_page_desc'] || 'Decades of transformative work across faith, culture, education, and international advocacy — touching millions of lives.'}
             </p>
           </div>
         </div>
@@ -113,18 +119,13 @@ export default async function Initiatives() {
           <div className="container">
             <div className="grid-2">
               <div className="fade-up">
-                <span className="section-label">Flagship Institution</span>
-                <h2 className="section-title">Chavara Cultural Centre, Delhi</h2>
+                <span className="section-label">{c['init_ccc_label'] || 'Flagship Institution'}</span>
+                <h2 className="section-title">{c['init_ccc_title'] || 'Chavara Cultural Centre, Delhi'}</h2>
                 <p style={{ marginBottom: '1.25rem' }}>
-                  As the Director of the Chavara Cultural Centre in Delhi, Fr. Roby has transformed it
-                  into one of the most vibrant hubs for intercultural and interfaith dialogue in the
-                  national capital. Named after Blessed Kuriakose Elias Chavara, the Centre serves as a
-                  bridge between Kerala's rich cultural heritage and the diverse communities of Delhi.
+                  {c['init_ccc_desc1'] || "As the Director of the Chavara Cultural Centre in Delhi, Fr. Roby has transformed it into one of the most vibrant hubs for intercultural and interfaith dialogue in the national capital. Named after Blessed Kuriakose Elias Chavara, the Centre serves as a bridge between Kerala's rich cultural heritage and the diverse communities of Delhi."}
                 </p>
                 <p style={{ marginBottom: '1.5rem' }}>
-                  The Centre hosts hundreds of programmes annually — from classical arts performances and
-                  literary festivals to interfaith prayer services, youth leadership camps, and community
-                  welfare initiatives.
+                  {c['init_ccc_desc2'] || 'The Centre hosts hundreds of programmes annually — from classical arts performances and literary festivals to interfaith prayer services, youth leadership camps, and community welfare initiatives.'}
                 </p>
                 <ul className="values-list">
                   <li>
@@ -173,8 +174,8 @@ export default async function Initiatives() {
         <section className="section section-alt">
           <div className="container">
             <div className="text-center fade-up">
-              <span className="section-label">Areas of Work</span>
-              <h2 className="section-title">Key Departments &amp; Ministries</h2>
+              <span className="section-label">{c['init_areas_label'] || 'Areas of Work'}</span>
+              <h2 className="section-title">{c['init_areas_title'] || 'Key Departments & Ministries'}</h2>
             </div>
             <div className="grid-3 fade-up" id="initiatives-grid">
               {initiatives.map((item: any) => (
@@ -208,8 +209,8 @@ export default async function Initiatives() {
         <section className="section">
           <div className="container">
             <div className="text-center fade-up">
-              <span className="section-label">International Presence</span>
-              <h2 className="section-title">Global Initiatives</h2>
+              <span className="section-label">{c['init_intl_label'] || 'International Presence'}</span>
+              <h2 className="section-title">{c['init_intl_title'] || 'Global Initiatives'}</h2>
             </div>
             <div className="grid-2" style={{ alignItems: 'start', gap: '3rem' }}>
               <div className="fade-up">
@@ -258,14 +259,14 @@ export default async function Initiatives() {
             <div className="grid-2" style={{ alignItems: 'center', gap: '3rem' }}>
               <div className="fade-up text-center">
                 <p className="quote-text" style={{ fontSize: '1.4rem' }}>
-                  "At the United Nations, every voice counts. Fr. Roby ensures that the voice of India's interfaith communities is heard loudly and clearly."
+                  {c['init_un_quote'] || '"At the United Nations, every voice counts. Fr. Roby ensures that the voice of India\'s interfaith communities is heard loudly and clearly."'}
                 </p>
               </div>
               <div className="fade-up">
-                <span className="section-label" style={{ color: 'var(--gold-light)' }}>United Nations Role</span>
-                <h2 style={{ color: 'var(--white)', marginBottom: '1rem' }}>NGO Representative at the UN</h2>
+                <span className="section-label" style={{ color: 'var(--gold-light)' }}>{c['init_un_label'] || 'United Nations Role'}</span>
+                <h2 style={{ color: 'var(--white)', marginBottom: '1rem' }}>{c['init_un_title'] || 'NGO Representative at the UN'}</h2>
                 <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '1.5rem' }}>
-                  Fr. Roby participates in United Nations sessions in New York, Geneva, and Vienna. He advocates for peace, human rights, and the rights of religious minorities on behalf of civil society organizations.
+                  {c['init_un_desc'] || 'Fr. Roby participates in United Nations sessions in New York, Geneva, and Vienna. He advocates for peace, human rights, and the rights of religious minorities on behalf of civil society organizations.'}
                 </p>
                 <img
                   src="/assets/images/ngo-united-nations.webp"

@@ -41,7 +41,7 @@ const FILTERS = [
   { id: 'community', label: 'Community' },
 ];
 
-export default function GalleryClient({ dbItems }: { dbItems: GalleryItem[] }) {
+export default function GalleryClient({ dbItems, content = {} }: { dbItems: GalleryItem[], content?: Record<string, string> }) {
   const items = dbItems.length > 0 ? dbItems : STATIC_ITEMS;
   const [activeFilter, setActiveFilter] = useState('all');
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
@@ -72,8 +72,8 @@ export default function GalleryClient({ dbItems }: { dbItems: GalleryItem[] }) {
         <div className="page-header" id="main-content">
           <div className="container">
             <p className="breadcrumb"><Link href="/">Home</Link> <span>/</span> Gallery</p>
-            <h1>Photo Gallery</h1>
-            <p>A visual journey through Fr. Roby's work — cultural celebrations, interfaith gatherings, awards, and international summits.</p>
+            <h1>{content['gallery_page_title'] || 'Photo Gallery'}</h1>
+            <p>{content['gallery_page_desc'] || "A visual journey through Fr. Roby's work — cultural celebrations, interfaith gatherings, awards, and international summits."}</p>
           </div>
         </div>
 

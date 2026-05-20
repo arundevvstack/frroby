@@ -7,12 +7,19 @@ export const metadata = {
   alternates: { canonical: '/gallery' },
 };
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function Gallery() {
   const supabase = await createClient();
-  const { data: dbItems } = await supabase
-    .from('gallery')
-    .select('*')
-    .order('created_at', { ascending: false });
+  const [{ data: dbItems }, { data: scData }] = await Promise.all([
+    supabase.from('gallery').select('*').order('created_at', { ascending: false }),
+    supabase.from('site_content').select('content_key, content_value').eq('page', 'gallery')
+  ]);
 
-  return <GalleryClient dbItems={dbItems ?? []} />;
+  const c: Record<string, string> = Object.fromEntries(
+    (scData || []).map((r: any) => [r.content_key, r.content_value])
+  );
+
+  return <GalleryClient dbItems={dbItems ?? []} content={c} />;
 }

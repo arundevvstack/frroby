@@ -1,6 +1,12 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import SiteShell from '@/components/SiteShell';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import { createClient } from '@/lib/supabase/server';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'Dr. Fr. Roby Kannanchira CMI | Global Peace & Cultural Ambassador',
@@ -46,11 +52,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient();
+  const { data: scData } = await supabase.from('site_content').select('content_key, content_value').eq('page', 'footer');
+  
+  const c: Record<string, string> = Object.fromEntries(
+    (scData || []).map((r: any) => [r.content_key, r.content_value])
+  );
+
   return (
     <html lang="en">
       <head>
@@ -62,7 +75,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <SiteShell>
+        <SiteShell navbar={<Navbar />} footer={<Footer content={c} />}>
           {children}
         </SiteShell>
       </body>

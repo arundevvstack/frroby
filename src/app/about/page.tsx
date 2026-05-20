@@ -11,12 +11,19 @@ export const metadata = {
   },
 };
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function About() {
   const supabase = await createClient();
-  const { data: scData } = await supabase.from('site_content').select('content_key, content_value').eq('page', 'about');
+  const [{ data: scData }, { data: faqsData }] = await Promise.all([
+    supabase.from('site_content').select('content_key, content_value').eq('page', 'about'),
+    supabase.from('faqs').select('*').order('display_order', { ascending: true })
+  ]);
   const c: Record<string, string> = Object.fromEntries(
     (scData || []).map((r: any) => [r.content_key, r.content_value])
   );
+  const faqs = faqsData || [];
 
   const jsonLd = [
     {
@@ -50,44 +57,14 @@ export default async function About() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      'mainEntity': [
-        {
-          '@type': 'Question',
-          'name': "What is Dr. Fr. Roby Kannanchira CMI's role at the United Nations?",
-          'acceptedAnswer': {
-            '@type': 'Answer',
-            'text':
-              "Dr. Fr. Roby Kannanchira CMI serves as an official NGO Representative at the United Nations in New York, Geneva, and Vienna. He represents CMI's global efforts, advocating for civil society, human rights, sustainable development, and global peace initiatives.",
-          },
-        },
-        {
-          '@type': 'Question',
-          'name': "What is the Chavara Cultural Centre under Dr. Fr. Roby's leadership?",
-          'acceptedAnswer': {
-            '@type': 'Answer',
-            'text':
-              "Under his leadership as Director, the Chavara Cultural Centre in Delhi has transformed into a vibrant interfaith hub. The center organizes interreligious dialogue programmes, cultural integration festivals, peace education initiatives, and social empowerment projects.",
-          },
-        },
-        {
-          '@type': 'Question',
-          'name': 'What is the CMI Congregation, and how does it influence his mission?',
-          'acceptedAnswer': {
-            '@type': 'Answer',
-            'text':
-              "The Carmelites of Mary Immaculate (CMI) is India's first indigenous Catholic religious congregation, founded by Saint Kuriakose Elias Chavara. CMI focuses on education, social reform, and spiritual growth, which serves as the core foundation for Dr. Fr. Roby's lifelong dedication to interfaith and community service.",
-          },
-        },
-        {
-          '@type': 'Question',
-          'name': 'What doctoral research has Dr. Fr. Roby conducted?',
-          'acceptedAnswer': {
-            '@type': 'Answer',
-            'text':
-              "Dr. Fr. Roby Kannanchira CMI holds a Doctorate in Theology with a specialized focus on Interreligious Dialogue. His research explores pathways for peace, interfaith cooperation, and cross-cultural encounter, laying the academic foundation for his local and global activities.",
-          },
-        },
-      ],
+      'mainEntity': faqs.map(faq => ({
+        '@type': 'Question',
+        'name': faq.question,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': faq.answer,
+        }
+      }))
     },
   ];
 
@@ -306,78 +283,23 @@ export default async function About() {
                 gap: '2rem',
               }}
             >
-              <div className="faq-item" style={{ borderBottom: '1px solid var(--border)', paddingBottom: '1.5rem' }}>
-                <h3
-                  style={{
-                    fontSize: '1.15rem',
-                    color: 'var(--text)',
-                    marginBottom: '0.5rem',
-                    fontFamily: 'var(--font-playfair)',
-                  }}
-                >
-                  What is Dr. Fr. Roby Kannanchira CMI's role at the United Nations?
-                </h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6' }}>
-                  Dr. Fr. Roby Kannanchira CMI serves as an official NGO Representative at the United
-                  Nations in New York, Geneva, and Vienna. He represents CMI's global efforts,
-                  advocating for civil society, human rights, sustainable development, and global
-                  peace initiatives.
-                </p>
-              </div>
-              <div className="faq-item" style={{ borderBottom: '1px solid var(--border)', paddingBottom: '1.5rem' }}>
-                <h3
-                  style={{
-                    fontSize: '1.15rem',
-                    color: 'var(--text)',
-                    marginBottom: '0.5rem',
-                    fontFamily: 'var(--font-playfair)',
-                  }}
-                >
-                  What is the Chavara Cultural Centre under Dr. Fr. Roby's leadership?
-                </h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6' }}>
-                  Under his leadership as Director, the Chavara Cultural Centre in Delhi has
-                  transformed into a vibrant interfaith hub. The center organizes interreligious
-                  dialogue programmes, cultural integration festivals, peace education initiatives,
-                  and social empowerment projects.
-                </p>
-              </div>
-              <div className="faq-item" style={{ borderBottom: '1px solid var(--border)', paddingBottom: '1.5rem' }}>
-                <h3
-                  style={{
-                    fontSize: '1.15rem',
-                    color: 'var(--text)',
-                    marginBottom: '0.5rem',
-                    fontFamily: 'var(--font-playfair)',
-                  }}
-                >
-                  What is the CMI Congregation, and how does it influence his mission?
-                </h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6' }}>
-                  The Carmelites of Mary Immaculate (CMI) is India's first indigenous Catholic
-                  religious congregation, founded by Saint Kuriakose Elias Chavara. CMI focuses on
-                  education, social reform, and spiritual growth, which serves as the core foundation
-                  for Dr. Fr. Roby's lifelong dedication to interfaith and community service.
-                </p>
-              </div>
-              <div className="faq-item" style={{ borderBottom: '1px solid var(--border)', paddingBottom: '1.5rem' }}>
-                <h3
-                  style={{
-                    fontSize: '1.15rem',
-                    color: 'var(--text)',
-                    marginBottom: '0.5rem',
-                    fontFamily: 'var(--font-playfair)',
-                  }}
-                >
-                  What doctoral research has Dr. Fr. Roby conducted?
-                </h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6' }}>
-                  Dr. Fr. Roby Kannanchira CMI holds a Doctorate in Theology with a specialized focus
-                  on Interreligious Dialogue. His research explores pathways for peace, interfaith
-                  cooperation, and cross-cultural encounter, laying the academic foundation for his
-                  local and global activities.
-                </p>
-              </div>
+              {faqs.map((faq) => (
+                <div key={faq.id} className="faq-item" style={{ borderBottom: '1px solid var(--border)', paddingBottom: '1.5rem' }}>
+                  <h3
+                    style={{
+                      fontSize: '1.15rem',
+                      color: 'var(--text)',
+                      marginBottom: '0.5rem',
+                      fontFamily: 'var(--font-playfair)',
+                    }}
+                  >
+                    {faq.question}
+                  </h3>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6' }}>
+                    {faq.answer}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

@@ -1,10 +1,8 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import Navbar from './Navbar';
-import Footer from './Footer';
 
-export default function SiteShell({ children }: { children: React.ReactNode }) {
+export default function SiteShell({ children, navbar, footer }: { children: React.ReactNode, navbar?: React.ReactNode, footer?: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin');
 
@@ -15,9 +13,9 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
           Skip to Content
         </a>
       )}
-      {!isAdmin && <Navbar />}
+      {!isAdmin && navbar}
       {children}
-      {!isAdmin && <Footer />}
+      {!isAdmin && footer}
     </>
   );
 }

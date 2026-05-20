@@ -15,6 +15,9 @@ const STATIC_EVENTS = [
   { id: 'e3', title: 'Condolence Meeting in Honor of His Holiness Pope Francis', category: 'News · May 2025', description: 'A solemn condolence gathering was held in New Delhi to honor the memory of His Holiness Pope Francis.', image_url: '/assets/images/news-3.webp' },
 ];
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function Home() {
   const supabase = await createClient();
   const [{ data: dbAwards }, { data: dbEvents }, { data: scData }] = await Promise.all([

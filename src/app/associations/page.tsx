@@ -10,7 +10,20 @@ export const metadata = {
   },
 };
 
-export default function Associations() {
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+export default async function Associations() {
+  const supabase = await createClient();
+  const [{ data: dbAssociations }, { data: scData }] = await Promise.all([
+    supabase.from('associations').select('*').order('created_at', { ascending: false }),
+    supabase.from('site_content').select('content_key, content_value').eq('page', 'associations')
+  ]);
+
+  const c: Record<string, string> = Object.fromEntries(
+    (scData || []).map((r: any) => [r.content_key, r.content_value])
+  );
+
   const jsonLd = [
     {
       '@context': 'https://schema.org',
@@ -60,10 +73,9 @@ export default function Associations() {
               <Link href="/">Home</Link> <span>/</span> <Link href="/about">About</Link>{' '}
               <span>/</span> Associations
             </p>
-            <h1>Associations &amp; Collaborations</h1>
+            <h1>{c['assoc_page_title'] || 'Associations & Roles'}</h1>
             <p>
-              Fr. Roby's far-reaching network of partnerships with international organizations,
-              institutions, and leaders united for peace.
+              {c['assoc_page_desc'] || 'Dr. Fr. Roby Kannanchira CMI holds significant roles across various national and international organizations, building bridges through collaboration.'}
             </p>
           </div>
         </div>
