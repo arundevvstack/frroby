@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gallery | Dr. Fr. Roby Kannanchira CMI</title>
-  <meta name="description" content="A visual collection of Fr. Roby's global peacekeeping missions, cultural events at Chavara Centre, and international summits.">
+  <meta name="description" content="A visual collection of Dr. Fr. Roby Kannanchira CMI's global peacekeeping missions, cultural events at Chavara Centre, and international summits.">
   <link rel="canonical" href="https://frrobykannanchiracmi.com/gallery.html">
 
   <!-- Security & Integrity -->
@@ -12,11 +12,42 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
-  <!-- Performance -->
+  <!-- Performance & Fonts Preload -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap">
+  </noscript>
+  <link rel="icon" type="image/webp" href="assets/images/logo.webp">
   <link rel="stylesheet" href="assets/style.css">
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "Dr. Fr. Roby Kannanchira CMI Photo Gallery",
+      "description": "Visual collection of peace summits, cultural events, awards, and interfaith gatherings."
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://frrobykannanchiracmi.com/"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Gallery",
+        "item": "https://frrobykannanchiracmi.com/gallery.html"
+      }]
+    }
+  ]
+  </script>
   <style>
     /* Extended gallery styles */
     .gallery-section { padding: 0 0 3rem; }
@@ -42,12 +73,13 @@
   </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to Content</a>
 
 <!-- ─── NAVBAR ─── -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <img src="assets/images/logo.png" alt="Fr. Roby CMI Logo">
+      <img src="assets/images/logo.webp" alt="Fr. Roby CMI Logo" width="200" height="17">
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
@@ -62,14 +94,14 @@
       <li><a href="gallery.html" class="active">Gallery</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+    <button class="hamburger" id="hamburger" aria-label="Toggle Menu" aria-expanded="false" aria-controls="navLinks">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
 <!-- ─── PAGE HEADER ─── -->
-<div class="page-header">
+<div class="page-header" id="main-content">
   <div class="container">
     <p class="breadcrumb"><a href="index.html">Home</a> <span>/</span> Gallery</p>
     <h1>Photo Gallery</h1>
@@ -94,22 +126,22 @@
       <h3>Cultural Events &amp; Programmes</h3>
       <div class="gallery-grid">
         <div class="gallery-item" data-cat="events">
-          <img src="assets/images/gallery-1.jpg" alt="National cultural festival event" loading="lazy">
+          <img src="assets/images/gallery-1.webp" alt="National cultural festival event" loading="lazy" width="800" height="600">
         </div>
         <div class="gallery-item" data-cat="events">
-          <img src="assets/images/gallery-2.jpg" alt="Interfaith award ceremony" loading="lazy">
+          <img src="assets/images/gallery-2.webp" alt="Interfaith award ceremony" loading="lazy" width="800" height="600">
         </div>
         <div class="gallery-item" data-cat="events">
-          <img src="assets/images/contrib-1.jpg" alt="Global interfaith dialogue gathering" loading="lazy">
+          <img src="assets/images/contrib-1.webp" alt="Global interfaith dialogue gathering" loading="lazy" width="1600" height="864">
         </div>
         <div class="gallery-item" data-cat="events">
-          <img src="assets/images/contrib-2.jpg" alt="Community development program in Delhi" loading="lazy">
+          <img src="assets/images/contrib-2.webp" alt="Community development program in Delhi" loading="lazy" width="1600" height="864">
         </div>
         <div class="gallery-item" data-cat="events community">
-          <img src="assets/images/gallery-3.jpg" alt="Peace and harmony community walk" loading="lazy">
+          <img src="assets/images/gallery-3.webp" alt="Peace and harmony community walk" loading="lazy" width="800" height="600">
         </div>
         <div class="gallery-item" data-cat="events">
-          <img src="assets/images/gallery-4.jpg" alt="Cultural yoga and wellness workshop" loading="lazy">
+          <img src="assets/images/gallery-4.webp" alt="Cultural yoga and wellness workshop" loading="lazy" width="800" height="600">
         </div>
       </div>
     </div>
@@ -119,13 +151,13 @@
       <h3>Awards &amp; Recognitions</h3>
       <div class="gallery-grid">
         <div class="gallery-item" data-cat="awards international">
-          <img src="assets/images/award-taiwan-2023.jpg" alt="Fr. Roby receiving International Peace Award in Taiwan" loading="lazy">
+          <img src="assets/images/award-taiwan-2023.webp" alt="Fr. Roby receiving International Peace Award in Taiwan" loading="lazy" width="1600" height="864">
         </div>
         <div class="gallery-item" data-cat="awards">
-          <img src="assets/images/award-stallin-2012.jpg" alt="Stallin International Award for Global Peace" loading="lazy">
+          <img src="assets/images/award-stallin-2012.webp" alt="Stallin International Award for Global Peace" loading="lazy" width="1600" height="864">
         </div>
         <div class="gallery-item" data-cat="awards international">
-          <img src="assets/images/ngo-united-nations.jpg" alt="Fr. Roby at the United Nations General Assembly" loading="lazy">
+          <img src="assets/images/ngo-united-nations.webp" alt="Fr. Roby at the United Nations General Assembly" loading="lazy" width="1600" height="864">
         </div>
       </div>
     </div>
@@ -135,13 +167,13 @@
       <h3>International Engagements</h3>
       <div class="gallery-grid">
         <div class="gallery-item" data-cat="international">
-          <img src="assets/images/news-2.jpg" alt="Peace Summit Speaker Session in Dubai" loading="lazy">
+          <img src="assets/images/news-2.webp" alt="Peace Summit Speaker Session in Dubai" loading="lazy" width="768" height="432">
         </div>
         <div class="gallery-item" data-cat="international events">
-          <img src="assets/images/news-1.jpg" alt="Indo-Rwandan Cultural Night Celebration" loading="lazy">
+          <img src="assets/images/news-1.webp" alt="Indo-Rwandan Cultural Night Celebration" loading="lazy" width="768" height="512">
         </div>
         <div class="gallery-item" data-cat="international">
-          <img src="assets/images/news-3.jpg" alt="Vatican delegation and memorial event" loading="lazy">
+          <img src="assets/images/news-3.webp" alt="Vatican delegation and memorial event" loading="lazy" width="768" height="512">
         </div>
       </div>
     </div>
@@ -151,22 +183,22 @@
       <h3>Research &amp; Community</h3>
       <div class="gallery-grid">
         <div class="gallery-item" data-cat="community">
-          <img src="assets/images/research-1.jpg" alt="Theological research presentation" loading="lazy">
+          <img src="assets/images/research-1.webp" alt="Theological research presentation" loading="lazy" width="800" height="600">
         </div>
         <div class="gallery-item" data-cat="community">
-          <img src="assets/images/research-2.jpg" alt="Cultural studies research workshop" loading="lazy">
+          <img src="assets/images/research-2.webp" alt="Cultural studies research workshop" loading="lazy" width="800" height="600">
         </div>
         <div class="gallery-item" data-cat="community">
-          <img src="assets/images/research-3.jpg" alt="Academic publication and dialogue" loading="lazy">
+          <img src="assets/images/research-3.webp" alt="Academic publication and dialogue" loading="lazy" width="800" height="600">
         </div>
         <div class="gallery-item" data-cat="community">
-          <img src="assets/images/research-4.jpg" alt="Social empowerment through academic outreach" loading="lazy">
+          <img src="assets/images/research-4.webp" alt="Social empowerment through academic outreach" loading="lazy" width="800" height="600">
         </div>
         <div class="gallery-item" data-cat="community">
-          <img src="assets/images/contrib-3.png" alt="Collaborative peace building research" loading="lazy">
+          <img src="assets/images/contrib-3.webp" alt="Collaborative peace building research" loading="lazy" width="1600" height="864">
         </div>
         <div class="gallery-item" data-cat="community">
-          <img src="assets/images/contrib-4.jpg" alt="Youth community initiative meeting" loading="lazy">
+          <img src="assets/images/contrib-4.webp" alt="Youth community initiative meeting" loading="lazy" width="1200" height="648">
         </div>
       </div>
     </div>
@@ -179,8 +211,8 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="assets/images/logo.png" alt="Fr. Roby CMI Logo">
-        <p>Official website of Dr. Fr. Roby Kannamchirayil CMI — dedicated to promoting interfaith harmony, cultural preservation, and social empowerment across the globe.</p>
+        <img src="assets/images/logo.webp" alt="Fr. Roby CMI Logo" width="200" height="17">
+        <p>Official website of Dr. Fr. Roby Kannanchira CMI — dedicated to promoting interfaith harmony, cultural preservation, and social empowerment across the globe.</p>
         <p class="footer-tagline">✦ Building Bridges Through Faith, Culture &amp; Service</p>
       </div>
       <div class="footer-col">
@@ -213,7 +245,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 Fr. Roby Kannanchira CMI. All Rights Reserved.</p>
+      <p>© 2025 Dr. Fr. Roby Kannanchira CMI. All Rights Reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Use</a></p>
       <p>Designed with ✦ for Peace &amp; Harmony</p>
     </div>
   </div>
