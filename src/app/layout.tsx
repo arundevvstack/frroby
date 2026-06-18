@@ -52,6 +52,8 @@ export const metadata: Metadata = {
   },
 };
 
+import AdminProvider from '@/components/AdminProvider';
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -75,9 +77,11 @@ export default async function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <SiteShell navbar={<Navbar />} footer={<Footer content={c} />}>
-          {children}
-        </SiteShell>
+        <AdminProvider>
+          <SiteShell navbar={<Navbar />} footer={<Footer content={c} />}>
+            {children}
+          </SiteShell>
+        </AdminProvider>
       </body>
     </html>
   );

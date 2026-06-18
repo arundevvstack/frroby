@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import IntersectionReveal from '@/components/IntersectionReveal';
+import LiveText from '@/components/LiveText';
+import LiveImage from '@/components/LiveImage';
 import { createClient } from '@/lib/supabase/server';
 
 export const metadata = {
@@ -72,7 +74,7 @@ export default async function About() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@graph": jsonLd }) }}
       />
 
       <IntersectionReveal>
@@ -82,9 +84,9 @@ export default async function About() {
             <p className="breadcrumb">
               <Link href="/">Home</Link> <span>/</span> About
             </p>
-            <h1>{c['about_page_title'] || 'About Fr. Roby'}</h1>
+            <h1><LiveText contentKey="about_page_title" initialValue={c['about_page_title'] || 'About Fr. Roby'} /></h1>
             <p>
-              {c['about_page_subtitle'] || 'A visionary Carmelite priest dedicated to building a more peaceful and harmonious world through faith, culture, and dialogue.'}
+              <LiveText contentKey="about_page_subtitle" initialValue={c['about_page_subtitle'] || 'A visionary Carmelite priest dedicated to building a more peaceful and harmonious world through faith, culture, and dialogue.'} tagName="span" />
             </p>
           </div>
         </div>
@@ -94,8 +96,9 @@ export default async function About() {
           <div className="container">
             <div className="grid-2">
               <div className="about-portrait fade-up">
-                <img
-                  src={c['about_image'] || '/assets/images/frroby-about.webp'}
+                <LiveImage
+                  contentKey="about_image"
+                  initialUrl={c['about_image'] || '/assets/images/frroby-about.webp'}
                   srcSet={`${c['about_image_mobile'] || '/assets/images/frroby-about-mobile.webp'} 600w, ${c['about_image'] || '/assets/images/frroby-about.webp'} 1000w`}
                   sizes="(max-width: 768px) 100vw, 450px"
                   alt="Dr. Fr. Roby Kannanchira CMI Profile Portrait"
@@ -114,13 +117,13 @@ export default async function About() {
                   </em>
                 </h2>
                 <p style={{ marginBottom: '1.25rem' }}>
-                  {c['about_intro_text_1'] || 'Dr. Fr. Roby Kannanchira CMI is a visionary leader, scholar, and spiritual guide dedicated to promoting interfaith harmony, cultural preservation, and social empowerment. As Director of the Chavara Cultural Centre, Delhi, and an active NGO Representative at the United Nations, his efforts have touched lives across the globe.'}
+                  <LiveText contentKey="about_intro_text_1" initialValue={c['about_intro_text_1'] || 'Dr. Fr. Roby Kannanchira CMI is a visionary leader, scholar, and spiritual guide dedicated to promoting interfaith harmony, cultural preservation, and social empowerment. As Director of the Chavara Cultural Centre, Delhi, and an active NGO Representative at the United Nations, his efforts have touched lives across the globe.'} tagName="span" />
                 </p>
                 <p style={{ marginBottom: '1.5rem' }}>
-                  {c['about_intro_text_2'] || "Born and raised in Kerala, India, Fr. Roby brought the rich spiritual heritage of the Carmelites of Mary Immaculate (CMI) to bear on the pressing challenges of inter-religious dialogue and cultural understanding in contemporary India and beyond."}
+                  <LiveText contentKey="about_intro_text_2" initialValue={c['about_intro_text_2'] || "Born and raised in Kerala, India, Fr. Roby brought the rich spiritual heritage of the Carmelites of Mary Immaculate (CMI) to bear on the pressing challenges of inter-religious dialogue and cultural understanding in contemporary India and beyond."} tagName="span" />
                 </p>
                 <div className="highlight-box">
-                  {c['about_intro_quote'] || '"Every tradition carries within it seeds of peace. Our task is to nurture those seeds together \u2014 across all boundaries of faith and culture."'}
+                  <LiveText contentKey="about_intro_quote" initialValue={c['about_intro_quote'] || '"Every tradition carries within it seeds of peace. Our task is to nurture those seeds together \u2014 across all boundaries of faith and culture."'} />
                 </div>
                 <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1.5rem' }}>
                   <Link href="/contact" className="btn btn-primary">
@@ -145,13 +148,13 @@ export default async function About() {
             <div className="grid-2" style={{ alignItems: 'start', gap: '4rem' }}>
               <div className="fade-up">
                 <p style={{ marginBottom: '1.25rem' }}>
-                  {c['about_bio_text_1'] || "Fr. Roby Kannanchira CMI is a priest of the Carmelites of Mary Immaculate (CMI), one of India's first indigenous Catholic religious congregations founded by Blessed Kuriakose Elias Chavara. He has served the Church and society in multiple capacities \u2014 as a theologian, educator, cultural activist, and international advocate."}
+                  <LiveText contentKey="about_bio_text_1" initialValue={c['about_bio_text_1'] || "Fr. Roby Kannanchira CMI is a priest of the Carmelites of Mary Immaculate (CMI), one of India's first indigenous Catholic religious congregations founded by Blessed Kuriakose Elias Chavara. He has served the Church and society in multiple capacities \u2014 as a theologian, educator, cultural activist, and international advocate."} tagName="span" />
                 </p>
                 <p style={{ marginBottom: '1.25rem' }}>
-                  {c['about_bio_text_2'] || 'A Doctorate in Theology specializing in Interreligious Dialogue, his academic work has been widely recognized in theological circles. He has lectured at universities and conferences around the world, sharing insights on peace, dialogue, and the spirituality of encounter.'}
+                  <LiveText contentKey="about_bio_text_2" initialValue={c['about_bio_text_2'] || 'A Doctorate in Theology specializing in Interreligious Dialogue, his academic work has been widely recognized in theological circles. He has lectured at universities and conferences around the world, sharing insights on peace, dialogue, and the spirituality of encounter.'} tagName="span" />
                 </p>
                 <p>
-                  {c['about_bio_text_3'] || 'As Director of the Chavara Cultural Centre in Delhi, Fr. Roby transforms the centre into a vibrant meeting place for arts, culture, spirituality, and interfaith encounter. Under his leadership, the Centre has organized hundreds of programmes bringing together people of diverse faiths and backgrounds.'}
+                  <LiveText contentKey="about_bio_text_3" initialValue={c['about_bio_text_3'] || 'As Director of the Chavara Cultural Centre in Delhi, Fr. Roby transforms the centre into a vibrant meeting place for arts, culture, spirituality, and interfaith encounter. Under his leadership, the Centre has organized hundreds of programmes bringing together people of diverse faiths and backgrounds.'} tagName="span" />
                 </p>
               </div>
               <div className="fade-up">

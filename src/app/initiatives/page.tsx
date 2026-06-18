@@ -98,7 +98,7 @@ export default async function Initiatives() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@graph": jsonLd }) }} />
 
       <IntersectionReveal>
         {/* ─── PAGE HEADER ─── */}

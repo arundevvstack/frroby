@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import IntersectionReveal from '@/components/IntersectionReveal';
+import LiveText from '@/components/LiveText';
+import LiveImage from '@/components/LiveImage';
 import StatsSection from '@/components/StatsSection';
 import { createClient } from '@/lib/supabase/server';
 
@@ -134,7 +136,7 @@ export default async function Home() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@graph": jsonLd }) }}
       />
 
       <IntersectionReveal>
@@ -145,17 +147,17 @@ export default async function Home() {
           <div className="hero-glow"></div>
           <div className="hero-content" id="main-content">
             <div className="hero-text fade-up">
-              <div className="hero-badge">{c['hero_badge'] || 'CMI Priest · UN NGO Representative · Cultural Ambassador'}</div>
+              <div className="hero-badge"><LiveText contentKey="hero_badge" initialValue={c['hero_badge'] || 'CMI Priest · UN NGO Representative · Cultural Ambassador'} /></div>
               <h1>
-                {c['hero_title_line1'] || 'Dr. Fr. Roby'}
+                <LiveText contentKey="hero_title_line1" initialValue={c['hero_title_line1'] || 'Dr. Fr. Roby'} />
                 <br />
-                <em>{c['hero_title_line2'] || 'Kannanchira'}</em> CMI
+                <em><LiveText contentKey="hero_title_line2" initialValue={c['hero_title_line2'] || 'Kannanchira'} /></em> CMI
               </h1>
               <p className="hero-title" style={{ fontWeight: 600, color: 'var(--blue)', marginTop: '-0.5rem', marginBottom: '1.5rem' }}>
-                {c['hero_subtitle'] || 'Director, Chavara Cultural Centre, Delhi'}
+                <LiveText contentKey="hero_subtitle" initialValue={c['hero_subtitle'] || 'Director, Chavara Cultural Centre, Delhi'} />
               </p>
               <p>
-                {c['hero_description'] || 'A visionary leader dedicated to promoting interfaith harmony, cultural preservation, and social empowerment. His efforts have touched lives across the globe through faith, dialogue, and compassionate service.'}
+                <LiveText contentKey="hero_description" initialValue={c['hero_description'] || 'A visionary leader dedicated to promoting interfaith harmony, cultural preservation, and social empowerment. His efforts have touched lives across the globe through faith, dialogue, and compassionate service.'} tagName="span" />
               </p>
               <div className="hero-actions">
                 <Link href="/about" className="btn btn-primary">
@@ -168,8 +170,9 @@ export default async function Home() {
             </div>
             <div className="hero-image-wrap fade-up">
               <div className="hero-image-inner">
-                <img
-                  src={c['hero_image'] || '/assets/images/frroby-portrait.webp'}
+                <LiveImage
+                  contentKey="hero_image"
+                  initialUrl={c['hero_image'] || '/assets/images/frroby-portrait.webp'}
                   srcSet={`${c['hero_image_mobile'] || '/assets/images/frroby-portrait-mobile.webp'} 600w, ${c['hero_image'] || '/assets/images/frroby-portrait.webp'} 943w`}
                   sizes="(max-width: 768px) 100vw, 400px"
                   alt="Dr. Fr. Roby Kannanchira CMI"
@@ -181,8 +184,8 @@ export default async function Home() {
               <div className="hero-image-badge">
                 <span className="badge-icon">🌍</span>
                 <div className="badge-text">
-                  <strong>UN NGO Representative</strong>
-                  <span>New York, Geneva &amp; Vienna</span>
+                  <strong><LiveText contentKey="hero_image_badge_title" initialValue={c['hero_image_badge_title'] || 'UN NGO Representative'} /></strong>
+                  <span><LiveText contentKey="hero_image_badge_subtitle" initialValue={c['hero_image_badge_subtitle'] || 'New York, Geneva & Vienna'} /></span>
                 </div>
               </div>
             </div>
@@ -192,8 +195,8 @@ export default async function Home() {
         {/* ─── QUOTE MARQUEE ─── */}
         <div className="quote-section">
           <div className="container">
-            <p className="quote-text">{c['quote_text'] || '"Peace Begins When We Start Celebrating the Other."'}</p>
-            <p className="quote-author">{c['quote_author'] || '— Dr. Fr. Roby Kannanchira CMI'}</p>
+            <p className="quote-text"><LiveText contentKey="quote_text" initialValue={c['quote_text'] || '"Peace Begins When We Start Celebrating the Other."'} /></p>
+            <p className="quote-author"><LiveText contentKey="quote_author" initialValue={c['quote_author'] || '— Dr. Fr. Roby Kannanchira CMI'} /></p>
           </div>
         </div>
 
@@ -269,38 +272,38 @@ export default async function Home() {
           <div className="container">
             <div className="grid-2">
               <div className="fade-up">
-                <span className="section-label">{c['philosophy_label'] || 'His Philosophy'}</span>
-                <h2 className="section-title">{c['philosophy_title'] || 'Building Bridges, Not Walls'}</h2>
+                <span className="section-label"><LiveText contentKey="philosophy_label" initialValue={c['philosophy_label'] || 'His Philosophy'} /></span>
+                <h2 className="section-title"><LiveText contentKey="philosophy_title" initialValue={c['philosophy_title'] || 'Building Bridges, Not Walls'} /></h2>
                 <p style={{ marginBottom: '1.5rem' }}>
-                  {c['philosophy_description'] || 'The world today needs fewer barriers and more bridges. As people of faith, youth, and leaders — our mission must be to connect, not divide.'}
+                  <LiveText contentKey="philosophy_description" initialValue={c['philosophy_description'] || 'The world today needs fewer barriers and more bridges. As people of faith, youth, and leaders — our mission must be to connect, not divide.'} tagName="span" />
                 </p>
                 <ul className="values-list">
                   <li>
                     <div className="v-icon">✦</div>
                     <div>
-                      <strong>{c['philosophy_value_1_title'] || 'Replace suspicion with trust'}</strong>
-                      <span>{c['philosophy_value_1_desc'] || 'Fostering genuine understanding between different faith communities'}</span>
+                      <strong><LiveText contentKey="philosophy_value_1_title" initialValue={c['philosophy_value_1_title'] || 'Replace suspicion with trust'} /></strong>
+                      <span><LiveText contentKey="philosophy_value_1_desc" initialValue={c['philosophy_value_1_desc'] || 'Fostering genuine understanding between different faith communities'} /></span>
                     </div>
                   </li>
                   <li>
                     <div className="v-icon">✦</div>
                     <div>
-                      <strong>{c['philosophy_value_2_title'] || 'Replace hostility with dialogue'}</strong>
-                      <span>{c['philosophy_value_2_desc'] || 'Creating safe spaces for honest, respectful interfaith conversation'}</span>
+                      <strong><LiveText contentKey="philosophy_value_2_title" initialValue={c['philosophy_value_2_title'] || 'Replace hostility with dialogue'} /></strong>
+                      <span><LiveText contentKey="philosophy_value_2_desc" initialValue={c['philosophy_value_2_desc'] || 'Creating safe spaces for honest, respectful interfaith conversation'} /></span>
                     </div>
                   </li>
                   <li>
                     <div className="v-icon">✦</div>
                     <div>
-                      <strong>{c['philosophy_value_3_title'] || 'Replace ignorance with understanding'}</strong>
-                      <span>{c['philosophy_value_3_desc'] || 'Education and cultural immersion as tools for lasting peace'}</span>
+                      <strong><LiveText contentKey="philosophy_value_3_title" initialValue={c['philosophy_value_3_title'] || 'Replace ignorance with understanding'} /></strong>
+                      <span><LiveText contentKey="philosophy_value_3_desc" initialValue={c['philosophy_value_3_desc'] || 'Education and cultural immersion as tools for lasting peace'} /></span>
                     </div>
                   </li>
                   <li>
                     <div className="v-icon">✦</div>
                     <div>
-                      <strong>{c['philosophy_value_4_title'] || 'Celebrate diversity'}</strong>
-                      <span>{c['philosophy_value_4_desc'] || 'Honoring every faith, every life, and every voice as sacred'}</span>
+                      <strong><LiveText contentKey="philosophy_value_4_title" initialValue={c['philosophy_value_4_title'] || 'Celebrate diversity'} /></strong>
+                      <span><LiveText contentKey="philosophy_value_4_desc" initialValue={c['philosophy_value_4_desc'] || 'Honoring every faith, every life, and every voice as sacred'} /></span>
                     </div>
                   </li>
                 </ul>
@@ -310,8 +313,9 @@ export default async function Home() {
                 </Link>
               </div>
               <div className="fade-up">
-                <img
-                  src={c['philosophy_image'] || '/assets/images/building-bridges.webp'}
+                <LiveImage
+                  contentKey="philosophy_image"
+                  initialUrl={c['philosophy_image'] || '/assets/images/building-bridges.webp'}
                   srcSet={`${c['philosophy_image_mobile'] || '/assets/images/building-bridges-mobile.webp'} 800w, ${c['philosophy_image'] || '/assets/images/building-bridges.webp'} 1004w`}
                   sizes="(max-width: 768px) 100vw, 500px"
                   alt="Dr. Fr. Roby at an international interfaith summit"

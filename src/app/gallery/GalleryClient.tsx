@@ -55,7 +55,7 @@ export default function GalleryClient({ dbItems, content = {} }: { dbItems: Gall
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@graph": jsonLd }) }} />
 
       <style dangerouslySetInnerHTML={{ __html: `
         .filter-bar { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; }

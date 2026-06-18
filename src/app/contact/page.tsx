@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import IntersectionReveal from '@/components/IntersectionReveal';
+import LiveText from '@/components/LiveText';
+import LiveImage from '@/components/LiveImage';
 import { createClient } from '@/lib/supabase/server';
 
 export const metadata = {
@@ -69,7 +71,7 @@ export default async function Contact() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@graph": jsonLd }) }}
       />
 
       <IntersectionReveal>
@@ -79,9 +81,9 @@ export default async function Contact() {
             <p className="breadcrumb">
               <Link href="/">Home</Link> <span>/</span> Contact
             </p>
-            <h1>{c['contact_page_title'] || 'Get in Touch'}</h1>
+            <h1><LiveText contentKey="contact_page_title" initialValue={c['contact_page_title'] || 'Get in Touch'} /></h1>
             <p>
-              {c['contact_page_subtitle'] || 'Peace begins when we celebrate the other. Let us build a world where every faith, every life, and every voice is honored.'}
+              <LiveText contentKey="contact_page_subtitle" initialValue={c['contact_page_subtitle'] || 'Peace begins when we celebrate the other. Let us build a world where every faith, every life, and every voice is honored.'} tagName="span" />
             </p>
           </div>
         </div>
@@ -95,7 +97,7 @@ export default async function Contact() {
                 <span className="section-label">Let's Work Together</span>
                 <h2 className="section-title">Reach Out to Fr. Roby</h2>
                 <p style={{ marginBottom: '2rem' }}>
-                  {c['contact_intro_text'] || 'If you are interested in collaborating for interfaith programs, cultural events, peace education sessions, or organizing interreligious initiatives in India or abroad, please reach out.'}
+                  <LiveText contentKey="contact_intro_text" initialValue={c['contact_intro_text'] || 'If you are interested in collaborating for interfaith programs, cultural events, peace education sessions, or organizing interreligious initiatives in India or abroad, please reach out.'} tagName="span" />
                 </p>
 
                 {/* Use Cases */}
@@ -133,7 +135,7 @@ export default async function Contact() {
                       <strong>Email</strong>
                       <span>
                         <a href={`mailto:${email}`} style={{ color: 'var(--gold)' }}>
-                          {email}
+                          <LiveText contentKey="contact_email" initialValue={email} />
                         </a>
                       </span>
                     </div>
@@ -144,7 +146,7 @@ export default async function Contact() {
                       <strong>Phone</strong>
                       <span>
                         <a href={`tel:${phone.replace(/\s/g, '')}`} style={{ color: 'var(--gold)' }}>
-                          {phone}
+                          <LiveText contentKey="contact_phone" initialValue={phone} />
                         </a>
                       </span>
                     </div>
@@ -153,14 +155,15 @@ export default async function Contact() {
                     <div className="contact-info-icon">🏛️</div>
                     <div className="contact-info-text">
                       <strong>Location</strong>
-                      <span>{location}</span>
+                      <span><LiveText contentKey="contact_location" initialValue={location} /></span>
                     </div>
                   </div>
                 </div>
 
                 {/* Photo */}
-                <img
-                  src={c['contact_image'] || '/assets/images/contact-photo.webp'}
+                <LiveImage
+                  contentKey="contact_image"
+                  initialUrl={c['contact_image'] || '/assets/images/contact-photo.webp'}
                   alt="Dr. Fr. Roby Kannanchira CMI in dialogue"
                   loading="lazy"
                   width="1024"
@@ -271,17 +274,17 @@ export default async function Contact() {
                 <p>
                   Chavara Cultural Centre
                   <br />
-                  {location}
+                  <LiveText contentKey="contact_location" initialValue={location} />
                 </p>
                 <br />
                 <p>
                   <a href={`mailto:${email}`} style={{ color: 'var(--gold)' }}>
-                  {email}
+                  <LiveText contentKey="contact_email" initialValue={email} />
                 </a>
                 </p>
                 <p>
                 <a href={`tel:${phone.replace(/\s/g, '')}`} style={{ color: 'var(--gold)' }}>
-                  {phone}
+                  <LiveText contentKey="contact_phone" initialValue={phone} />
                 </a>
                 </p>
               </div>
@@ -293,12 +296,12 @@ export default async function Contact() {
                 <p style={{ marginBottom: '0.5rem' }}>
                   <strong style={{ color: 'var(--navy)' }}>Monday – Friday</strong>
                   <br />
-                  {c['contact_office_weekday'] || '9:00 AM – 5:00 PM IST'}
+                  <LiveText contentKey="contact_office_weekday" initialValue={c['contact_office_weekday'] || '9:00 AM – 5:00 PM IST'} />
                 </p>
                 <p>
                   <strong style={{ color: 'var(--navy)' }}>Saturday</strong>
                   <br />
-                  {c['contact_office_saturday'] || '10:00 AM – 1:00 PM IST'}
+                  <LiveText contentKey="contact_office_saturday" initialValue={c['contact_office_saturday'] || '10:00 AM – 1:00 PM IST'} />
                 </p>
                 <br />
                 <span className="tag tag-gold">Appointments Preferred</span>
