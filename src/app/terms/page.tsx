@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import IntersectionReveal from '@/components/IntersectionReveal';
+import LiveText from '@/components/LiveText';
 
 export const metadata = {
   title: 'Terms of Use | Dr. Fr. Roby Kannanchira CMI',
@@ -52,8 +53,8 @@ export default function TermsOfUse() {
             <p className="breadcrumb">
               <Link href="/">Home</Link> <span>/</span> Terms of Use
             </p>
-            <h1>Terms of Use</h1>
-            <p>Please read these Terms of Use carefully before using our website.</p>
+            <h1><LiveText contentKey="terms_page_title" initialValue="Terms of Use" /></h1>
+            <p><LiveText contentKey="terms_page_desc" initialValue="Please read these Terms of Use carefully before using our website." tagName="span" /></p>
           </div>
         </div>
 

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import IntersectionReveal from '@/components/IntersectionReveal';
+import LiveText from '@/components/LiveText';
 
 type GalleryItem = {
   id: string;
@@ -72,8 +73,8 @@ export default function GalleryClient({ dbItems, content = {} }: { dbItems: Gall
         <div className="page-header" id="main-content">
           <div className="container">
             <p className="breadcrumb"><Link href="/">Home</Link> <span>/</span> Gallery</p>
-            <h1>{content['gallery_page_title'] || 'Photo Gallery'}</h1>
-            <p>{content['gallery_page_desc'] || "A visual journey through Fr. Roby's work — cultural celebrations, interfaith gatherings, awards, and international summits."}</p>
+            <h1><LiveText contentKey="gallery_page_title" initialValue={content['gallery_page_title'] || 'Photo Gallery'} /></h1>
+            <p><LiveText contentKey="gallery_page_desc" initialValue={content['gallery_page_desc'] || "A visual journey through Fr. Roby's work — cultural celebrations, interfaith gatherings, awards, and international summits."} tagName="span" /></p>
           </div>
         </div>
 

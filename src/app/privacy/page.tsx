@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import IntersectionReveal from '@/components/IntersectionReveal';
+import LiveText from '@/components/LiveText';
 
 export const metadata = {
   title: 'Privacy Policy | Dr. Fr. Roby Kannanchira CMI',
@@ -52,8 +53,8 @@ export default function PrivacyPolicy() {
             <p className="breadcrumb">
               <Link href="/">Home</Link> <span>/</span> Privacy Policy
             </p>
-            <h1>Privacy Policy</h1>
-            <p>We value your privacy and are committed to protecting your personal information.</p>
+            <h1><LiveText contentKey="privacy_page_title" initialValue="Privacy Policy" /></h1>
+            <p><LiveText contentKey="privacy_page_desc" initialValue="We value your privacy and are committed to protecting your personal information." tagName="span" /></p>
           </div>
         </div>
 

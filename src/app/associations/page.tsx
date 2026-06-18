@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import IntersectionReveal from '@/components/IntersectionReveal';
+import LiveText from '@/components/LiveText';
+import LiveImage from '@/components/LiveImage';
 import { createClient } from '@/lib/supabase/server';
 
 export const metadata = {
@@ -71,9 +73,9 @@ export default async function Associations() {
               <Link href="/">Home</Link> <span>/</span> <Link href="/about">About</Link>{' '}
               <span>/</span> Associations
             </p>
-            <h1>{c['assoc_page_title'] || 'Associations & Roles'}</h1>
+            <h1><LiveText contentKey="assoc_page_title" initialValue={c['assoc_page_title'] || 'Associations & Roles'} /></h1>
             <p>
-              {c['assoc_page_desc'] || 'Dr. Fr. Roby Kannanchira CMI holds significant roles across various national and international organizations, building bridges through collaboration.'}
+              <LiveText contentKey="assoc_page_desc" initialValue={c['assoc_page_desc'] || 'Dr. Fr. Roby Kannanchira CMI holds significant roles across various national and international organizations, building bridges through collaboration.'} tagName="span" />
             </p>
           </div>
         </div>
@@ -82,12 +84,10 @@ export default async function Associations() {
         <section className="section">
           <div className="container">
             <div className="text-center fade-up" style={{ maxWidth: '700px', margin: '0 auto' }}>
-              <span className="section-label">Global Network</span>
-              <h2 className="section-title">Connected With The World For Peace</h2>
+              <span className="section-label"><LiveText contentKey="assoc_intro_label" initialValue="Global Network" /></span>
+              <h2 className="section-title"><LiveText contentKey="assoc_intro_title" initialValue="Connected With The World For Peace" /></h2>
               <p>
-                Over decades of service, Fr. Roby has built meaningful relationships with institutions,
-                national governments, religious bodies, and civil society organizations across the
-                globe — all united by the shared vision of a more harmonious world.
+                <LiveText contentKey="assoc_intro_text" initialValue="Over decades of service, Fr. Roby has built meaningful relationships with institutions, national governments, religious bodies, and civil society organizations across the globe — all united by the shared vision of a more harmonious world." tagName="span" />
               </p>
             </div>
           </div>
@@ -136,8 +136,9 @@ export default async function Associations() {
                 </ul>
               </div>
               <div className="fade-up">
-                <img
-                  src="/assets/images/ngo-united-nations.webp"
+                <LiveImage
+                  contentKey="assoc_un_image"
+                  initialUrl="/assets/images/ngo-united-nations.webp"
                   alt="Dr. Fr. Roby at the United Nations"
                   loading="lazy"
                   width="1600"
@@ -213,10 +214,9 @@ export default async function Associations() {
         <div className="quote-section">
           <div className="container text-center">
             <p className="quote-text">
-              "No single tradition can claim a monopoly on truth or peace. We need each other — and the
-              wisdom of every tradition — to build the world we desire."
+              <LiveText contentKey="assoc_quote_text" initialValue='"No single tradition can claim a monopoly on truth or peace. We need each other — and the wisdom of every tradition — to build the world we desire."' />
             </p>
-            <p className="quote-author">— Dr. Fr. Roby Kannanchira CMI</p>
+            <p className="quote-author"><LiveText contentKey="assoc_quote_author" initialValue="— Dr. Fr. Roby Kannanchira CMI" /></p>
           </div>
         </div>
 

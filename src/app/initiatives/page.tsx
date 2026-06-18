@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import IntersectionReveal from '@/components/IntersectionReveal';
+import LiveText from '@/components/LiveText';
+import LiveImage from '@/components/LiveImage';
 import { createClient } from '@/lib/supabase/server';
 
 export const metadata = {
@@ -107,9 +109,9 @@ export default async function Initiatives() {
             <p className="breadcrumb">
               <Link href="/">Home</Link> <span>/</span> Initiatives &amp; Contributions
             </p>
-            <h1>{c['init_page_title'] || 'Initiatives & Contributions'}</h1>
+            <h1><LiveText contentKey="init_page_title" initialValue={c['init_page_title'] || 'Initiatives & Contributions'} /></h1>
             <p>
-              {c['init_page_desc'] || 'Decades of transformative work across faith, culture, education, and international advocacy — touching millions of lives.'}
+              <LiveText contentKey="init_page_desc" initialValue={c['init_page_desc'] || 'Decades of transformative work across faith, culture, education, and international advocacy — touching millions of lives.'} tagName="span" />
             </p>
           </div>
         </div>
@@ -119,13 +121,13 @@ export default async function Initiatives() {
           <div className="container">
             <div className="grid-2">
               <div className="fade-up">
-                <span className="section-label">{c['init_ccc_label'] || 'Flagship Institution'}</span>
-                <h2 className="section-title">{c['init_ccc_title'] || 'Chavara Cultural Centre, Delhi'}</h2>
+                <span className="section-label"><LiveText contentKey="init_ccc_label" initialValue={c['init_ccc_label'] || 'Flagship Institution'} /></span>
+                <h2 className="section-title"><LiveText contentKey="init_ccc_title" initialValue={c['init_ccc_title'] || 'Chavara Cultural Centre, Delhi'} /></h2>
                 <p style={{ marginBottom: '1.25rem' }}>
-                  {c['init_ccc_desc1'] || "As the Director of the Chavara Cultural Centre in Delhi, Fr. Roby has transformed it into one of the most vibrant hubs for intercultural and interfaith dialogue in the national capital. Named after Blessed Kuriakose Elias Chavara, the Centre serves as a bridge between Kerala's rich cultural heritage and the diverse communities of Delhi."}
+                  <LiveText contentKey="init_ccc_desc1" initialValue={c['init_ccc_desc1'] || "As the Director of the Chavara Cultural Centre in Delhi, Fr. Roby has transformed it into one of the most vibrant hubs for intercultural and interfaith dialogue in the national capital. Named after Blessed Kuriakose Elias Chavara, the Centre serves as a bridge between Kerala's rich cultural heritage and the diverse communities of Delhi."} tagName="span" />
                 </p>
                 <p style={{ marginBottom: '1.5rem' }}>
-                  {c['init_ccc_desc2'] || 'The Centre hosts hundreds of programmes annually — from classical arts performances and literary festivals to interfaith prayer services, youth leadership camps, and community welfare initiatives.'}
+                  <LiveText contentKey="init_ccc_desc2" initialValue={c['init_ccc_desc2'] || 'The Centre hosts hundreds of programmes annually — from classical arts performances and literary festivals to interfaith prayer services, youth leadership camps, and community welfare initiatives.'} tagName="span" />
                 </p>
                 <ul className="values-list">
                   <li>
@@ -174,8 +176,8 @@ export default async function Initiatives() {
         <section className="section section-alt">
           <div className="container">
             <div className="text-center fade-up">
-              <span className="section-label">{c['init_areas_label'] || 'Areas of Work'}</span>
-              <h2 className="section-title">{c['init_areas_title'] || 'Key Departments & Ministries'}</h2>
+              <span className="section-label"><LiveText contentKey="init_areas_label" initialValue={c['init_areas_label'] || 'Areas of Work'} /></span>
+              <h2 className="section-title"><LiveText contentKey="init_areas_title" initialValue={c['init_areas_title'] || 'Key Departments & Ministries'} /></h2>
             </div>
             <div className="grid-3 fade-up" id="initiatives-grid">
               {initiatives.map((item: any) => (
@@ -209,8 +211,8 @@ export default async function Initiatives() {
         <section className="section">
           <div className="container">
             <div className="text-center fade-up">
-              <span className="section-label">{c['init_intl_label'] || 'International Presence'}</span>
-              <h2 className="section-title">{c['init_intl_title'] || 'Global Initiatives'}</h2>
+              <span className="section-label"><LiveText contentKey="init_intl_label" initialValue={c['init_intl_label'] || 'International Presence'} /></span>
+              <h2 className="section-title"><LiveText contentKey="init_intl_title" initialValue={c['init_intl_title'] || 'Global Initiatives'} /></h2>
             </div>
             <div className="grid-2" style={{ alignItems: 'start', gap: '3rem' }}>
               <div className="fade-up">
@@ -259,14 +261,14 @@ export default async function Initiatives() {
             <div className="grid-2" style={{ alignItems: 'center', gap: '3rem' }}>
               <div className="fade-up text-center">
                 <p className="quote-text" style={{ fontSize: '1.4rem' }}>
-                  {c['init_un_quote'] || '"At the United Nations, every voice counts. Fr. Roby ensures that the voice of India\'s interfaith communities is heard loudly and clearly."'}
+                  <LiveText contentKey="init_un_quote" initialValue={c['init_un_quote'] || '"At the United Nations, every voice counts. Fr. Roby ensures that the voice of India\'s interfaith communities is heard loudly and clearly."'} />
                 </p>
               </div>
               <div className="fade-up">
-                <span className="section-label" style={{ color: 'var(--gold-light)' }}>{c['init_un_label'] || 'United Nations Role'}</span>
-                <h2 style={{ color: 'var(--white)', marginBottom: '1rem' }}>{c['init_un_title'] || 'NGO Representative at the UN'}</h2>
+                <span className="section-label" style={{ color: 'var(--gold-light)' }}><LiveText contentKey="init_un_label" initialValue={c['init_un_label'] || 'United Nations Role'} /></span>
+                <h2 style={{ color: 'var(--white)', marginBottom: '1rem' }}><LiveText contentKey="init_un_title" initialValue={c['init_un_title'] || 'NGO Representative at the UN'} /></h2>
                 <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '1.5rem' }}>
-                  {c['init_un_desc'] || 'Fr. Roby participates in United Nations sessions in New York, Geneva, and Vienna. He advocates for peace, human rights, and the rights of religious minorities on behalf of civil society organizations.'}
+                  <LiveText contentKey="init_un_desc" initialValue={c['init_un_desc'] || 'Fr. Roby participates in United Nations sessions in New York, Geneva, and Vienna. He advocates for peace, human rights, and the rights of religious minorities on behalf of civil society organizations.'} tagName="span" />
                 </p>
                 <img
                   src="/assets/images/ngo-united-nations.webp"
