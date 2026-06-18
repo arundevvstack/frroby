@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/client';
 interface LiveTextProps {
   contentKey: string;
   initialValue: string;
-  tagName?: keyof JSX.IntrinsicElements;
+  tagName?: React.ElementType;
   className?: string;
   style?: React.CSSProperties;
 }
