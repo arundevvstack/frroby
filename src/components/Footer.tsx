@@ -6,7 +6,9 @@ export default function Footer({ content = {} }: { content?: Record<string, stri
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <img src="/assets/images/logo.webp" alt="Fr. Roby CMI Logo" width="200" height="17" />
+            <Link href="/">
+              <img src="/assets/images/logo.webp" alt="Fr. Roby CMI Logo" />
+            </Link>
             <p>
               {content['footer_brand_desc'] || 'Official website of Dr. Fr. Roby Kannanchira CMI — dedicated to promoting interfaith harmony, cultural preservation, and social empowerment across the globe.'}
             </p>

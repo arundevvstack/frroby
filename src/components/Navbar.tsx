@@ -55,7 +55,7 @@ export default function Navbar() {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} id="navbar">
       <div className="nav-inner">
         <Link href="/" className="nav-logo" onClick={closeMenu}>
-          <img src="/assets/images/logo.webp" alt="Fr. Roby CMI Logo" width="200" height="17" />
+          <img src="/assets/images/logo.webp" alt="Fr. Roby CMI Logo" />
         </Link>
 
         <ul className={`nav-links ${isOpen ? 'open' : ''}`} id="navLinks">

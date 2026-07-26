@@ -224,13 +224,13 @@ p  { color: var(--text-muted); }
 .nav-inner {
   max-width: 1200px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
-  height: 64px; padding: 0 24px;
+  height: 96px; padding: 0 24px;
 }
 
 .nav-logo { display: flex; align-items: center; gap: 8px; transition: var(--transition); }
 .nav-logo:hover { opacity: 0.8; transform: scale(0.98); }
 .nav-logo img {
-  height: 44px; width: auto;
+  height: 24px; width: auto;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
 }
 .nav-logo-text {
