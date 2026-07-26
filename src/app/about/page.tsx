@@ -4,6 +4,8 @@ import LiveText from '@/components/LiveText';
 import LiveImage from '@/components/LiveImage';
 import { createClient } from '@/lib/supabase/server';
 
+import NotableGallery from '@/components/NotableGallery';
+
 export const metadata = {
   title: 'About Dr. Fr. Roby Kannanchira CMI | Mission & Journey',
   description:
@@ -170,15 +172,6 @@ export default async function About() {
                   </div>
                   <div className="timeline-item">
                     <div className="timeline-dot"></div>
-                    <div className="timeline-date">Academic Excellence</div>
-                    <h4>Doctorate in Theology</h4>
-                    <p>
-                      Earned doctoral degree with focus on Interreligious Dialogue — academic
-                      foundation for his peace-building work.
-                    </p>
-                  </div>
-                  <div className="timeline-item">
-                    <div className="timeline-dot"></div>
                     <div className="timeline-date">Leadership</div>
                     <h4>Director, Chavara Cultural Centre</h4>
                     <p>
@@ -219,7 +212,7 @@ export default async function About() {
           </div>
         </section>
 
-        {/* ─── NOTABLE VISITORS ─── */}
+        {/* ─── NOTABLE VISITORS (IMAGE GRID) ─── */}
         <section className="section">
           <div className="container">
             <div className="text-center fade-up">
@@ -230,40 +223,10 @@ export default async function About() {
                 and cultural luminaries.
               </p>
             </div>
-            <div className="grid-3 fade-up" style={{ gap: '1.5rem' }}>
-              <div className="feature-card" style={{ textAlign: 'center' }}>
-                <div className="feature-icon" style={{ margin: '0 auto 1rem' }}>
-                  🏛️
-                </div>
-                <h3>President Ananda Bose</h3>
-                <p>
-                  Governor of West Bengal — discussions on culture, interfaith relations, and
-                  national harmony.
-                </p>
-              </div>
-              <div className="feature-card" style={{ textAlign: 'center' }}>
-                <div className="feature-icon" style={{ margin: '0 auto 1rem' }}>
-                  ✝️
-                </div>
-                <h3>Apostolic Nuncio</h3>
-                <p>
-                  Vatican's representative in India — coordination on Catholic outreach and
-                  interreligious initiatives.
-                </p>
-              </div>
-              <div className="feature-card" style={{ textAlign: 'center' }}>
-                <div className="feature-icon" style={{ margin: '0 auto 1rem' }}>
-                  🎭
-                </div>
-                <h3>Mallika Sarabhai</h3>
-                <p>
-                  Renowned dancer and cultural activist — collaboration on arts-based
-                  peace-building programmes.
-                </p>
-              </div>
-            </div>
+            <NotableGallery />
           </div>
         </section>
+
 
         {/* ─── FAQ SECTION ─── */}
         <section className="section faq-section" style={{ backgroundColor: 'var(--white)' }}>

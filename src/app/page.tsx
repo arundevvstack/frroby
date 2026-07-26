@@ -151,14 +151,16 @@ export default async function Home() {
               <h1>
                 <LiveText contentKey="hero_title_line1" initialValue={c['hero_title_line1'] || 'Dr. Fr. Roby'} />
                 <br />
-                <em><LiveText contentKey="hero_title_line2" initialValue={c['hero_title_line2'] || 'Kannanchira'} /></em> CMI
+                <span className="hero-highlight">
+                  <em className="hero-highlight-inner"><LiveText contentKey="hero_title_line2" initialValue={c['hero_title_line2'] || 'Kannanchira'} /></em>
+                </span> CMI
               </h1>
-              <p className="hero-title" style={{ fontWeight: 600, color: 'var(--blue)', marginTop: '-0.5rem', marginBottom: '1.5rem' }}>
-                <LiveText contentKey="hero_subtitle" initialValue={c['hero_subtitle'] || 'Director, Chavara Cultural Centre, Delhi'} />
-              </p>
-              <p>
-                <LiveText contentKey="hero_description" initialValue={c['hero_description'] || 'A visionary leader dedicated to promoting interfaith harmony, cultural preservation, and social empowerment. His efforts have touched lives across the globe through faith, dialogue, and compassionate service.'} tagName="span" />
-              </p>
+              <div className="hero-title">
+                <LiveText contentKey="hero_subtitle" initialValue={c['hero_subtitle'] || 'Director, Chavara Cultural Centre, Delhi'} tagName="p" />
+              </div>
+              <div className="hero-desc">
+                <LiveText contentKey="hero_description" initialValue={c['hero_description'] || 'A Catholic priest, peace educator, and interreligious dialogue practitioner committed to promoting harmony, inclusion, and human dignity. Through his leadership at Chavara Cultural Centre, Delhi, he supports initiatives for specially abled children, children living with HIV, and marginalized communities, while representing humanitarian causes at national and international platforms, including the United Nations.'} tagName="p" />
+              </div>
               <div className="hero-actions">
                 <Link href="/about" className="btn btn-primary">
                   Discover His Story →
@@ -240,8 +242,7 @@ export default async function Home() {
                 <div className="feature-icon">📚</div>
                 <h3>Scholar &amp; Author</h3>
                 <p>
-                  Author of doctoral research on interfaith relations. Theological educator with deep
-                  academic expertise in interreligious dialogue.
+                  Author of doctoral research on interfaith relations.
                 </p>
               </div>
               <div className="feature-card">
@@ -322,7 +323,7 @@ export default async function Home() {
                   loading="lazy"
                   width="1004"
                   height="533"
-                  style={{ borderRadius: '16px', boxShadow: '0 12px 40px rgba(26,39,68,0.15)' }}
+                  style={{ borderRadius: '16px', boxShadow: '0 12px 40px rgba(26,39,68,0.15)', width: '100%', height: 'auto', objectFit: 'cover' }}
                 />
               </div>
             </div>

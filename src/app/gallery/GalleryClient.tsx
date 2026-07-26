@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import IntersectionReveal from '@/components/IntersectionReveal';
 import LiveText from '@/components/LiveText';
@@ -14,16 +14,17 @@ type GalleryItem = {
 };
 
 const STATIC_ITEMS: GalleryItem[] = [
+  { id: 'new1', title: 'Meeting with Prime Minister Narendra Modi', image_url: 'https://static.wixstatic.com/media/baf7e1_d106af4a59a742d686ca8b6c0ba7d726~mv2.jpg', category: 'international' },
+  { id: 'new2', title: 'Meeting with HE Cardinal George Jacob Koovakad', image_url: 'https://static.wixstatic.com/media/baf7e1_9c58c625497b485ea34e7adda503f910~mv2.jpg', category: 'international' },
+  { id: 'new3', title: "Meeting with Hon'ble Vice President Shri. C. P. Radhakrishnan", image_url: 'https://static.wixstatic.com/media/baf7e1_cd90fcbcf9b9463fae51ccb9bea8c315~mv2.jpg', category: 'events' },
+  { id: 'new4', title: "Meeting with Hon'ble Governor of West Bengal Dr. C. V. Ananda Bose", image_url: 'https://static.wixstatic.com/media/baf7e1_f057e31ad132438c967b53e88ebe137e~mv2.jpg', category: 'events' },
   { id: 's1', title: 'National cultural festival event', image_url: '/assets/images/gallery-1.webp', category: 'events' },
   { id: 's2', title: 'Interfaith award ceremony', image_url: '/assets/images/gallery-2.webp', category: 'events' },
   { id: 's3', title: 'Global interfaith dialogue gathering', image_url: '/assets/images/contrib-1.webp', category: 'events' },
   { id: 's4', title: 'Community development program in Delhi', image_url: '/assets/images/contrib-2.webp', category: 'events' },
-  { id: 's5', title: 'Peace and harmony community walk', image_url: '/assets/images/gallery-3.webp', category: 'community' },
-  { id: 's6', title: 'Cultural yoga and wellness workshop', image_url: '/assets/images/gallery-4.webp', category: 'events' },
   { id: 's7', title: 'Fr. Roby receiving International Peace Award in Taiwan', image_url: '/assets/images/award-taiwan-2023.webp', category: 'awards' },
   { id: 's8', title: 'Stallin International Award for Global Peace', image_url: '/assets/images/award-stallin-2012.webp', category: 'awards' },
   { id: 's9', title: 'Fr. Roby at the United Nations General Assembly', image_url: '/assets/images/ngo-united-nations.webp', category: 'international' },
-  { id: 's10', title: 'Peace Summit Speaker Session in Dubai', image_url: '/assets/images/news-2.webp', category: 'international' },
   { id: 's11', title: 'Indo-Rwandan Cultural Night Celebration', image_url: '/assets/images/news-1.webp', category: 'international' },
   { id: 's12', title: 'Vatican delegation and memorial event', image_url: '/assets/images/news-3.webp', category: 'international' },
   { id: 's13', title: 'Theological research presentation', image_url: '/assets/images/research-1.webp', category: 'community' },
@@ -45,9 +46,37 @@ const FILTERS = [
 export default function GalleryClient({ dbItems, content = {} }: { dbItems: GalleryItem[], content?: Record<string, string> }) {
   const items = dbItems.length > 0 ? dbItems : STATIC_ITEMS;
   const [activeFilter, setActiveFilter] = useState('all');
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const filtered = activeFilter === 'all' ? items : items.filter(i => i.category === activeFilter);
+
+  const slideNext = useCallback(() => {
+    if (lightboxIndex !== null && filtered.length > 0) {
+      setLightboxIndex((lightboxIndex + 1) % filtered.length);
+    }
+  }, [lightboxIndex, filtered.length]);
+
+  const slidePrev = useCallback(() => {
+    if (lightboxIndex !== null && filtered.length > 0) {
+      setLightboxIndex((lightboxIndex - 1 + filtered.length) % filtered.length);
+    }
+  }, [lightboxIndex, filtered.length]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxIndex === null) return;
+      if (e.key === 'ArrowRight') slideNext();
+      if (e.key === 'ArrowLeft') slidePrev();
+      if (e.key === 'Escape') setLightboxIndex(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxIndex, slideNext, slidePrev]);
+
+  // Reset lightbox when changing filter so it doesn't break
+  useEffect(() => {
+    setLightboxIndex(null);
+  }, [activeFilter]);
 
   const jsonLd = [
     { '@context': 'https://schema.org', '@type': 'ImageGallery', name: 'Dr. Fr. Roby Kannanchira CMI Photo Gallery', description: 'Visual collection of peace summits, cultural events, awards, and interfaith gatherings.' },
@@ -98,7 +127,7 @@ export default function GalleryClient({ dbItems, content = {} }: { dbItems: Gall
                   key={item.id}
                   className="gallery-item"
                   style={{ cursor: 'pointer' }}
-                  onClick={() => setLightboxImage(item.image_url)}
+                  onClick={() => setLightboxIndex(index)}
                 >
                   <img
                     src={item.image_url}
@@ -120,10 +149,14 @@ export default function GalleryClient({ dbItems, content = {} }: { dbItems: Gall
         </section>
       </IntersectionReveal>
 
-      {lightboxImage && (
-        <div className="lightbox active" id="lightbox" onClick={() => setLightboxImage(null)}>
-          <button className="lightbox-close" id="lbClose" onClick={e => { e.stopPropagation(); setLightboxImage(null); }}>✕</button>
-          <img src={lightboxImage} alt="Gallery image" onClick={e => e.stopPropagation()} />
+      {lightboxIndex !== null && (
+        <div className="lightbox open" id="lightbox" onClick={() => setLightboxIndex(null)}>
+          <button className="lightbox-close" id="lbClose" onClick={e => { e.stopPropagation(); setLightboxIndex(null); }}>✕</button>
+          
+          <button className="lightbox-nav prev" onClick={e => { e.stopPropagation(); slidePrev(); }} style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.12)', border: 'none', color: '#fff', fontSize: '2rem', width: '50px', height: '50px', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>‹</button>
+          <button className="lightbox-nav next" onClick={e => { e.stopPropagation(); slideNext(); }} style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.12)', border: 'none', color: '#fff', fontSize: '2rem', width: '50px', height: '50px', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>›</button>
+          
+          <img src={filtered[lightboxIndex]?.image_url} alt="Gallery image" onClick={e => e.stopPropagation()} style={{ userSelect: 'none' }} />
         </div>
       )}
     </>

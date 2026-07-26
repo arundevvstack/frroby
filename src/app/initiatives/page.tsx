@@ -38,14 +38,6 @@ const STATIC_INITIATIVES = [
     image_url: '/assets/images/contrib-3.webp',
   },
   {
-    id: 'static-4',
-    title: 'Peace Education',
-    category: 'Ongoing',
-    description:
-      'Curricula and resource development for peace education in schools, colleges, and faith formation centres across India.',
-    image_url: '/assets/images/contrib-4.webp',
-  },
-  {
     id: 'static-5',
     title: 'Social Welfare',
     category: 'Active',
